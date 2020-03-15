@@ -1,0 +1,16 @@
+{
+  "logo": "Logo",
+  "Login": "Inloggen",
+  "Register": "Registreer",
+  "greeting": "Login op je account",
+  "Login credentials error": "Er is iets mis met je inloggegevens :-(",
+  "Email Address": "E-mailadres",
+  "Password": "Wachtwoord",
+  "Full Name": "Volledige naam",
+  "Forget Password": "Wachtwoord vergeten",
+  "Welcome!": "Welkom!",
+  "Create your account": "Maak een account aan",
+  "Reset Password": "Herstel wachtwoord",
+  "Update password": "Update password",
+  "Reset credentials error": "Er is iets mis met je resetgegevens :-("
+}

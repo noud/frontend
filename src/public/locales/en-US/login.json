@@ -1,0 +1,16 @@
+{
+  "Logo": "Logo",
+  "Login": "Login",
+  "Register": "Register",
+  "greeting": "Login to your account",
+  "Login credentials error": "Something is wrong with your login or password :-(",
+  "Email Address": "Email Address",
+  "Password": "Password",
+  "Full Name": "Full Name",
+  "Forget Password": "Forget Password",
+  "Welcome!": "Welcome!",
+  "Create your account": "Create your account",
+  "Reset Password": "Reset Password",
+  "Update password": "Update password",
+  "Reset credentials error": "Something is wrong with your reset :-("
+}
