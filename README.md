@@ -4,6 +4,8 @@
 
 ![login](./docs/login.png?raw=true "login")
 
+Login uses [OAuth2](https://en.wikipedia.org/wiki/OAuth#OAuth_2.0) authentication to [Lighthouse GraphQL Passport Auth](https://lighthouse-passport-auth.web.app/).
+
 ## Dashboard
 
 ![dashboard](./docs/dashboard.png?raw=true "dashboard")
