@@ -78,15 +78,13 @@ export default function Login() {
     gql`
       mutation Register($name: String!, $username: String!, $password: String!, $password_confirmation: String!) {
         register(input: { name: $name, email: $username, password: $password, password_confirmation: $password_confirmation }) {
-          access_token
-          refresh_token
-          expires_in
-          token_type
-          user {
-            id
-            email
-            name
+          tokens {
+            access_token
+            refresh_token
+            expires_in
+            token_type
           }
+          status
         }
       }
     `,
@@ -95,7 +93,7 @@ export default function Login() {
         console.log(register);
         setIsLoading(false);
 
-        localStorage.setItem('id_token', register.access_token);
+        localStorage.setItem('id_token', register.tokens.access_token);
 
         UserStore.set(
           {
