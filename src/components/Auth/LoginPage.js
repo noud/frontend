@@ -13,7 +13,6 @@ import useStyles from './styles';
 import { callOnEnter } from '../../lib';
 
 export default function Login() {
-  console.log('loginPage');
   const { t } = useTranslation('login');
   const history = useHistory();
   const classes = useStyles();
@@ -52,7 +51,6 @@ export default function Login() {
     `,
     {
       onCompleted: ({ login }) => {
-        console.log(login);
         setIsLoading(false);
 
         localStorage.setItem('id_token', login.access_token);
@@ -90,7 +88,6 @@ export default function Login() {
     `,
     {
       onCompleted: ({ register }) => {
-        console.log(register);
         setIsLoading(false);
 
         localStorage.setItem('id_token', register.tokens.access_token);

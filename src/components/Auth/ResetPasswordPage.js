@@ -43,8 +43,6 @@ export default function ResetPassword(props) {
       onCompleted: ({ updateForgottenPassword }) => {
         setIsLoading(false);
 
-        console.log(updateForgottenPassword);
-
         if (updateForgottenPassword.status === 'PASSWORD_UPDATED') {
           history.push('/login');
         } else {

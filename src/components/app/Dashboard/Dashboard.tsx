@@ -16,7 +16,6 @@ class Index extends React.PureComponent<{}, IndexState> {
   };
 
   public render() {
-    console.log('Index');
     return (
       <div className="App">
       <header className="App-header">
@@ -24,14 +23,6 @@ class Index extends React.PureComponent<{}, IndexState> {
         <p>
           Software as a service (SaaS)
         </p>
-        <a
-          className="App-link"
-          href="/login"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Login
-        </a>
       </header>
     </div>
     );
