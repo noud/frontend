@@ -61,7 +61,7 @@ export default function Login() {
             isAuthenticated: true,
           },
           () => {
-            history.push('/');
+            history.push('/app');
           }
         );
       },
@@ -98,7 +98,7 @@ export default function Login() {
             isAuthenticated: true,
           },
           () => {
-            history.push('/');
+            history.push('/app');
           }
         );
       },

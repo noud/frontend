@@ -1,0 +1,75 @@
+fragment userQueryFields on User {
+    id,
+    name,
+    email,
+    # customer {
+    #   id,
+    #   displayField: name,
+    # }
+  }
+
+query GetUsers($first: Int!, $page: Int) {
+    apollo_paginated_users(first: $first, page: $page) {
+      data {
+        ...userQueryFields
+      }
+      paginatorInfo {
+        perPage
+        total
+      }
+    }
+  }
+  
+  query GetUser($id: ID!) {
+    apollo_single_user(id: {id: $id}){
+      ...userQueryFields
+    }
+  }
+  
+#   query getUserAllAssociatedModelData {
+#     __typename
+#     customers (first: 100) {
+#       data{
+#         id,
+#         displayField: name
+#       }
+#     }
+#   }
+
+
+mutation CreateUser(
+    $name: String!,
+    $email: String!,
+  ) {
+    createUser(
+      input: {
+        name: $name,
+        email: $email,
+      }
+    ) {
+      id
+    }
+  }
+
+mutation UpdateUser(
+    $id: ID!,
+    $name: String,
+    $email: String,
+) {
+    updateUser(
+      input: {
+        id: $id,
+        name: $name,
+        email: $email,
+      }
+    ) {
+      id
+    }
+}
+
+
+mutation DeleteUser($id: ID!) {
+  deleteUser(id: $id){
+    id
+  }
+}

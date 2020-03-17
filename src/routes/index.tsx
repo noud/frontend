@@ -3,6 +3,8 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 // Application
 import AppRoutes from './AppRoutes';
+import EntityRoutes from './entities';
+// import UserRoutes from './entities/UserRoutes';
 
 // Default pages
 import ErrorPage from '../components/Error/ErrorPage';
@@ -16,6 +18,8 @@ export default function Routes() {
   return (
     <Switch>
       <PrivateRoute exact path="/" component={AppRoutes} />
+      <PrivateRoute path="/app" component={EntityRoutes} />
+      {/* <Route exact path="/app" render={() => <Redirect to="/app/dashboard" />} /> */}
       <PublicRoute path="/login" component={LoginPage} />
       <PublicRoute path="/password/reset" component={ResetPasswordPage} />
       <Route component={ErrorPage} />

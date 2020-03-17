@@ -1,10 +1,4 @@
 {
-  "customer": "customer",
-  "customers": "customers",
-  "product": "product",
-  "products": "products",
-  "order": "order",
-  "orders": "orders",
   "user": "user",
   "users": "users"
 }
