@@ -23,6 +23,8 @@ function Header() {
   const [profileMenu, setProfileMenu] = useState(null);
   const [isSearchOpen, setSearchOpen] = useState(false);
 
+  const UserName = localStorage.getItem('user_name');
+
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
@@ -50,7 +52,7 @@ function Header() {
         >
           <div className={classes.profileMenuUser}>
             <Typography variant="h4" weight="medium">
-            Jose Fonseca
+            {UserName}
             </Typography>
           </div>
           <MenuItem className={classNames(classes.profileMenuItem, classes.headerMenuItem)}>Profile</MenuItem>

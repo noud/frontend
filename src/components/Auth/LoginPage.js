@@ -54,6 +54,7 @@ export default function Login() {
         setIsLoading(false);
 
         localStorage.setItem('id_token', login.access_token);
+        localStorage.setItem('user_name', login.user.name);
 
         UserStore.set(
           {

@@ -51,6 +51,7 @@ function updateForgottenPassword(updateForgottenPasswordMutation, email, token, 
 
 function signOut(history) {
   localStorage.removeItem('id_token');
+  localStorage.removeItem('user_name');
 
   UserStore.set({
     isAuthenticated: false,
