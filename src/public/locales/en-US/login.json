@@ -12,5 +12,6 @@
   "Create your account": "Create your account",
   "Reset Password": "Reset Password",
   "Update password": "Update password",
-  "Reset credentials error": "Something is wrong with your reset :-("
+  "Reset credentials error": "Something is wrong with your reset :-(",
+  "Sign Out": "Logout"
 }

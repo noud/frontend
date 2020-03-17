@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 import { AppBar, Toolbar, IconButton, InputBase, Menu, MenuItem } from '@material-ui/core';
 import { Person as AccountIcon, Search as SearchIcon } from '@material-ui/icons';
@@ -15,8 +16,8 @@ import { Typography } from '../../Wrappers/Wrappers';
 import { signOut } from '../../../stores/UserStore';
 
 function Header() {
+  const { t } = useTranslation('login');
   const history = useHistory();
-
   const classes = useStyles();
 
   // local
@@ -58,7 +59,7 @@ function Header() {
           <MenuItem className={classNames(classes.profileMenuItem, classes.headerMenuItem)}>Profile</MenuItem>
           <div className={classes.profileMenuUser}>
             <Typography className={classes.profileMenuLink} color="primary" onClick={() => signOut(history)}>
-              Sign Out
+              {t('Sign Out')}
             </Typography>
           </div>
         </Menu>

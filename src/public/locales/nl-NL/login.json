@@ -12,5 +12,6 @@
   "Create your account": "Maak een account aan",
   "Reset Password": "Herstel wachtwoord",
   "Update password": "Update password",
-  "Reset credentials error": "Er is iets mis met je resetgegevens :-("
+  "Reset credentials error": "Er is iets mis met je resetgegevens :-(",
+  "Sign Out": "Logout"
 }
