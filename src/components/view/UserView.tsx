@@ -45,7 +45,7 @@ const UserView = function() {
   );
   const classes = useStyles();
 
-  return data && data!.user! ? (
+  return data && data! ? (
     <SimpleCard
       heading="View user"
       arrowBack={{
@@ -58,7 +58,7 @@ const UserView = function() {
         </Button>
       </div>
       <Table className={classes.table} size="small">
-        <TableBody>{Schema.objectKeys().map((key: string) => getTableRow(key, data.user))}</TableBody>
+        <TableBody>{Schema.objectKeys().map((key: string) => getTableRow(key, data))}</TableBody>
       </Table>
     </SimpleCard>
   ) : (

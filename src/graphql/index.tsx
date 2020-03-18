@@ -178,9 +178,9 @@ export type Query = {
   User?: Maybe<User>;
   allUsers: Array<User>;
   _allUsersMeta?: Maybe<ListMetadata>;
+  apollo_users: Array<User>;
   apollo_paginated_users?: Maybe<UserPaginator>;
   apollo_single_user?: Maybe<User>;
-  apollo_users: Array<User>;
 };
 
 
@@ -212,7 +212,7 @@ export type QueryApollo_Paginated_UsersArgs = {
 
 
 export type QueryApollo_Single_UserArgs = {
-  id?: Maybe<UserInput>;
+  id?: Maybe<Scalars['ID']>;
 };
 
 export type RefreshTokenInput = {
@@ -435,7 +435,7 @@ export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery
 export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const GetUserDocument = gql`
     query GetUser($id: ID!) {
-  apollo_single_user(id: {id: $id}) {
+  apollo_single_user(id: $id) {
     ...userQueryFields
   }
 }
