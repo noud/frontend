@@ -19,6 +19,8 @@ export default function EntityTable({
 }) {
   const pageSizeOptions = [1, 10, 20, 50, 100];
 
+  console.log('EntityTable data', data);
+
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,

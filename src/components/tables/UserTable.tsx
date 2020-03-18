@@ -12,17 +12,50 @@ export default function UsersTable() {
   const defaultPageSize = 10;
 
   const { data, loading: getLoading, error, refetch, variables } = useGetUsersQuery({
-    fetchPolicy: 'cache-and-network',
+  // const { data, loading, error, refetch } = useGetUsersQuery({
+    // fetchPolicy: 'cache-first',
+    fetchPolicy: 'network-only',
+    // fetchPolicy: 'cache-and-network',
     variables: { first: defaultPageSize, page: 0 },
   });
 
-  const fetchIdRef = React.useRef(0);
+  console.log('UsersTable data', data);
+  console.log('UsersTable loading', getLoading);
+  console.log('UsersTable error', error);
 
+  // const { data, loading: getLoading, error, refetch, variables } = all;
+
+  // console.log('UsersTable all', all);
+ 
+  // if (data === undefined) {
+  //   return (
+  //     <SimpleCard
+  //       heading="Users"
+  //       button={{
+  //         text: 'add',
+  //         link: '/app/user/insert',
+  //       }}
+  //       removeSpacing={true}
+  //     >
+  //     </SimpleCard>
+  //   );
+  // }
+
+  console.log('UsersTable data 1', data);
+
+  const fetchIdRef = React.useRef(0);
   const [pageCount, setPageCount] = React.useState(0);
 
+  // console.log('UsersTable pageSize', pageSize);
+  // console.log('UsersTable pageIndex', pageIndex);
+
   const fetchData = React.useCallback(({ pageSize, pageIndex }) => {
+    console.log('UsersTable pageSize', pageSize);
+    console.log('UsersTable pageIndex', pageIndex);
+
     // Give this fetch an ID
     const fetchId = ++fetchIdRef.current;
+    console.log('UsersTable fetchId', fetchId);
 
     // Only update the data if this is the latest fetch (and not the first, because we already fetched above)
     if (fetchId > 1 && fetchId === fetchIdRef.current) {
@@ -33,7 +66,11 @@ export default function UsersTable() {
     }
   }, []);
 
-  const result = data && data.users ? data.users : {};
+  console.log('UsersTable data 2', data);
+
+  const result = data && data.apollo_paginated_users ? data.apollo_paginated_users : {};
+
+  console.log('UsersTable result', result);
 
   // Update the pageCount if necessary
   if (result.paginatorInfo) {
@@ -65,7 +102,7 @@ export default function UsersTable() {
         entityName="user"
         columns={columnDefinitions}
         actions={{ remove }}
-        data={result.data || []}
+        data={result || []}
         loading={getLoading}
         fetchData={fetchData}
         defaultPageSize={defaultPageSize}

@@ -11,6 +11,8 @@ import ErrorPage from '../components/Error/ErrorPage';
 import LoginPage from '../components/Auth/LoginPage';
 import ResetPasswordPage from '../components/Auth/ResetPasswordPage';
 import UserTable from '../components/tables/UserTable';
+import UserInsertForm from '../components/forms/insert/UserInsertForm';
+import UserUpdateForm from '../components/forms/update/UserUpdateForm';
 import UserView from '../components/view/UserView';
 
 // Contexts
@@ -19,7 +21,9 @@ import UserStore from '../stores/UserStore';
 export default function Routes() {
   return (
     <Switch>
+  <Route exact key={`user.insert`} path={`/app/user/insert`} component={() => (<UserInsertForm />)} />
   <Route exact key={`user.table`} path={`/app/user`} component={() => (<UserTable />)} />
+  <Route exact key={`user.update`} path={`/app/user/:id/edit`} component={() => (<UserUpdateForm />)} />
   <Route exact key={`user.view`} path={`/app/user/:id`} component={() => (<UserView />)} />
       <PrivateRoute exact path="/" component={AppRoutes} />
       {/* <PrivateRoute path="/app" component={EntityRoutes} /> */}
