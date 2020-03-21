@@ -1,4 +1,6 @@
 import SimpleSchema from 'simpl-schema';
+
+// import TextField from 'uniforms-material';
 import HiddenField from '../../lib/HiddenField';
 
 export default new SimpleSchema({

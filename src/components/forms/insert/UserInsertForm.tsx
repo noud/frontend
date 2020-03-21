@@ -8,6 +8,10 @@ export default function UserUpdateForm() {
   const history = useHistory();
 
   const [create, { loading, error }] = useCreateUserMutation({
+    variables: {
+      name: 'name',
+      email: 'email'
+    },
     onCompleted: () => history.goBack(),
   });
 

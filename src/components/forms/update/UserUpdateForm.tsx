@@ -8,18 +8,29 @@ export default function UserUpdateForm() {
   const { id } = useParams();
   const history = useHistory();
 
+  console.log(id);
   const { data, dataLoading, dataError } = useGetUserQuery({
     variables: {
-      id: id
+      id: id,
+      // name: 'name',
+      // email: 'email'
     },
   });
-
+  console.log(id);
+  console.log(data);
   const [update, { data: updateData, loading, error }] = useUpdateUserMutation({
+    variables: {
+      id: id,
+      name: 'name',
+      email: 'email'
+    },
     onCompleted: () => history.push('/app/user'),
   });
+  console.log('id', id);
+  console.log('data',data);
 
-  return data && data!.user! ? (
-    <UserForm type="update" handleSubmit={update} data={ data.user } />
+  return data ? (
+    <UserForm type="update" handleSubmit={update} data={ data.apollo_single_user } />
   ) : (
     <CircularProgress />
   );
