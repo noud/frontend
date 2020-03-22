@@ -206,7 +206,7 @@ export type QueryOpencrud_UserArgs = {
 
 
 export type QueryApollo_Paginated_UsersArgs = {
-  first?: Maybe<Scalars['Int']>;
+  first: Scalars['Int'];
   page?: Maybe<Scalars['Int']>;
 };
 
@@ -307,27 +307,18 @@ export type VerifyEmailInput = {
 };
 
 export type UserQueryFieldsFragment = (
-  { __typename?: 'User' }
+  { __typename: 'User' }
   & Pick<User, 'id' | 'name' | 'email'>
 );
 
-export type GetUsersQueryVariables = {
-  first: Scalars['Int'];
-  page?: Maybe<Scalars['Int']>;
-};
+export type GetUsersQueryVariables = {};
 
 
 export type GetUsersQuery = (
   { __typename?: 'Query' }
-  & { apollo_paginated_users?: Maybe<(
-    { __typename?: 'UserPaginator' }
-    & { data: Array<(
-      { __typename?: 'User' }
-      & UserQueryFieldsFragment
-    )>, paginatorInfo: (
-      { __typename?: 'PaginatorInfo' }
-      & Pick<PaginatorInfo, 'perPage' | 'total'>
-    ) }
+  & { apollo_users: Array<(
+    { __typename?: 'User' }
+    & UserQueryFieldsFragment
   )> }
 );
 
@@ -391,18 +382,13 @@ export const UserQueryFieldsFragmentDoc = gql`
   id
   name
   email
+  __typename
 }
     `;
 export const GetUsersDocument = gql`
-    query GetUsers($first: Int!, $page: Int) {
-  apollo_paginated_users(first: $first, page: $page) {
-    data {
-      ...userQueryFields
-    }
-    paginatorInfo {
-      perPage
-      total
-    }
+    query GetUsers {
+  apollo_users {
+    ...userQueryFields
   }
 }
     ${UserQueryFieldsFragmentDoc}`;
@@ -419,8 +405,6 @@ export const GetUsersDocument = gql`
  * @example
  * const { data, loading, error } = useGetUsersQuery({
  *   variables: {
- *      first: // value for 'first'
- *      page: // value for 'page'
  *   },
  * });
  */

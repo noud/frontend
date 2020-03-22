@@ -21,8 +21,7 @@ function UserForm(props: any) {
 
   const { data: associatedData } = useGetUserQuery({
     variables: {
-      id: data.id ? data.id : 0,
-      // id: "5",
+      id: data && data.id ? data.id : 0,
     },
   });
 
@@ -31,7 +30,7 @@ function UserForm(props: any) {
   return associatedData ? (
     <SimpleCard
       heading={'User ' + type}
-      arrowBack={{link: '/app/user',}}
+      arrowBack={{link: '/user',}}
     >
       <AutoForm id="userForm" schema={formSchema} model={formData} onSubmit={(doc: any) => handleSubmit({ variables: doc })}>
         {formSchema.objectKeys('').map((key: string) => {

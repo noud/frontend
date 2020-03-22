@@ -24,7 +24,7 @@ export default function UserUpdateForm() {
       name: 'name',
       email: 'email'
     },
-    onCompleted: () => history.push('/app/user'),
+    onCompleted: () => history.push('/user'),
   });
   console.log('id', id);
   console.log('data',data);

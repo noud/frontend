@@ -21,14 +21,14 @@ import UserStore from '../stores/UserStore';
 export default function Routes() {
   return (
     <Switch>
-  <Route exact key={`user.insert`} path={`/app/user/insert`} component={() => (<UserInsertForm />)} />
-  <Route exact key={`user.table`} path={`/app/user`} component={() => (<UserTable />)} />
-  <Route exact key={`user.update`} path={`/app/user/:id/edit`} component={() => (<UserUpdateForm />)} />
-  <Route exact key={`user.view`} path={`/app/user/:id`} component={() => (<UserView />)} />
+  <Route exact key={`user.insert`} path={`/user/insert`} component={() => (<UserInsertForm />)} />
+  <Route exact key={`user.table`} path={`/user`} component={() => (<UserTable />)} />
+  <Route exact key={`user.update`} path={`/user/:id/edit`} component={() => (<UserUpdateForm />)} />
+  <Route exact key={`user.view`} path={`/user/:id`} component={() => (<UserView />)} />
       <PrivateRoute exact path="/" component={AppRoutes} />
       {/* <PrivateRoute path="/app" component={EntityRoutes} /> */}
 
-      <Route exact path="/app" render={() => <Redirect to="/app/dashboard" />} />
+      <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
       <PublicRoute path="/login" component={LoginPage} />
       <PublicRoute path="/password/reset" component={ResetPasswordPage} />
       <Route component={ErrorPage} />

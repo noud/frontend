@@ -55,7 +55,7 @@ export default function EntityTable({
   );
 
   React.useEffect(() => {
-    fetchData({ pageIndex, pageSize });
+    // fetchData({ pageIndex, pageSize });
   }, [fetchData, pageIndex, pageSize]);
 
   // Render the UI for your table

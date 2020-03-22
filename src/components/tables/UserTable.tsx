@@ -11,21 +11,31 @@ const columnDefinitions = getColumnDefinitions(UserSchema);
 export default function UsersTable() {
   const defaultPageSize = 10;
 
+  // const [qRefresh, setQRefresh] = React.useState(0)
+
   const { data, loading: getLoading, error, refetch, variables } = useGetUsersQuery({
-  // const { data, loading, error, refetch } = useGetUsersQuery({
     // fetchPolicy: 'cache-first',
-    fetchPolicy: 'network-only',
-    // fetchPolicy: 'cache-and-network',
-    variables: { first: defaultPageSize, page: 0 },
+    // returnPartialData: true,
+    // errorPolicy: "all",
+    // onCompleted: (...params) => {
+    //   setQRefresh(qRefresh + 1)
+    // },
+  // fetchPolicy: 'network-only',
+    // fetchPolicy: 'no-cache',
+    // pollInterval: 0,
+    fetchPolicy: 'cache-and-network',
+    // variables: { first: defaultPageSize, page: 0 },
   });
+  // refetch(variables);
 
   console.log('UsersTable data', data);
-  console.log('UsersTable loading', getLoading);
-  console.log('UsersTable error', error);
+  // console.log('UsersTable loading', getLoading);
+  // console.log('UsersTable error', error);
 
   // const { data, loading: getLoading, error, refetch, variables } = all;
+  // refetch(variables);
 
-  // console.log('UsersTable all', all);
+  // console.log('UsersTable all: ', all);
  
   // if (data === undefined) {
   //   return (
@@ -33,7 +43,7 @@ export default function UsersTable() {
   //       heading="Users"
   //       button={{
   //         text: 'add',
-  //         link: '/app/user/insert',
+  //         link: '/user/insert',
   //       }}
   //       removeSpacing={true}
   //     >
@@ -41,7 +51,7 @@ export default function UsersTable() {
   //   );
   // }
 
-  console.log('UsersTable data 1', data);
+  // console.log('UsersTable data 1', data);
 
   const fetchIdRef = React.useRef(0);
   const [pageCount, setPageCount] = React.useState(0);
@@ -50,12 +60,12 @@ export default function UsersTable() {
   // console.log('UsersTable pageIndex', pageIndex);
 
   const fetchData = React.useCallback(({ pageSize, pageIndex }) => {
-    console.log('UsersTable pageSize', pageSize);
-    console.log('UsersTable pageIndex', pageIndex);
+    // console.log('UsersTable pageSize', pageSize);
+    // console.log('UsersTable pageIndex', pageIndex);
 
     // Give this fetch an ID
     const fetchId = ++fetchIdRef.current;
-    console.log('UsersTable fetchId', fetchId);
+    // console.log('UsersTable fetchId', fetchId);
 
     // Only update the data if this is the latest fetch (and not the first, because we already fetched above)
     if (fetchId > 1 && fetchId === fetchIdRef.current) {
@@ -66,9 +76,9 @@ export default function UsersTable() {
     }
   }, []);
 
-  console.log('UsersTable data 2', data);
+  // console.log('UsersTable data 2', data);
 
-  const result = data && data.apollo_paginated_users ? data.apollo_paginated_users : {};
+  const result = data && data.apollo_users ? data.apollo_users : [];
 
   console.log('UsersTable result', result);
 
@@ -94,7 +104,7 @@ export default function UsersTable() {
       heading="Users"
       button={{
         text: 'add',
-        link: '/app/user/insert',
+        link: '/user/insert',
       }}
       removeSpacing={true}
     >
@@ -102,7 +112,7 @@ export default function UsersTable() {
         entityName="user"
         columns={columnDefinitions}
         actions={{ remove }}
-        data={result || []}
+        data={result}
         loading={getLoading}
         fetchData={fetchData}
         defaultPageSize={defaultPageSize}

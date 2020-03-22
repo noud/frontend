@@ -18,7 +18,7 @@ export default function DefaultRenderer({ cell, row, initialState }) {
       return <EntityLink data={firstValue} />;
     }
 
-    return <Link to={'/app' + entityName + '/' + row.original.id}>{value.length + ' ' + pluralize.plural(firstValue.__typename)}</Link>;
+    return <Link to={'/' + entityName + '/' + row.original.id}>{value.length + ' ' + pluralize.plural(firstValue.__typename)}</Link>;
   }
 
   if (typeof value == 'object') {

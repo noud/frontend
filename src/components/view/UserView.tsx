@@ -30,7 +30,7 @@ const UserView = function() {
   const [deleteUserMutation, { delData, delLoading, delError }] = useDeleteUserMutation();
   const deleteUser = function() {
     deleteUserMutation({variables: {id: id}});
-    history.push('/app/user');
+    history.push('/user');
   }
 
   const useStyles = makeStyles((theme: Theme) =>
@@ -49,7 +49,7 @@ const UserView = function() {
     <SimpleCard
       heading="View user"
       arrowBack={{
-        link: '/app/user',
+        link: '/user',
       }}
     >
       <div>
