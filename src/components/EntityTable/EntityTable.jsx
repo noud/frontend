@@ -1,10 +1,15 @@
 import React from 'react';
+import { useTable, useSortBy, usePagination } from 'react-table';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
+import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
-import { useTable, useSortBy, usePagination } from 'react-table';
+import TablePagination from '@material-ui/core/TablePagination';
+
+import TablePaginationActions from './TablePaginationActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function EntityTable({
@@ -19,7 +24,7 @@ export default function EntityTable({
 }) {
   const pageSizeOptions = [1, 10, 20, 50, 100];
 
-  console.log('EntityTable data', data);
+  // console.log('EntityTable data', data);
 
   // Use the state and functions returned from useTable to build your UI
   const {
@@ -55,7 +60,8 @@ export default function EntityTable({
   );
 
   React.useEffect(() => {
-    // fetchData({ pageIndex, pageSize });
+    let pi = pageIndex;
+    fetchData({ pageIndex: pi, pageSize });
   }, [fetchData, pageIndex, pageSize]);
 
   // Render the UI for your table
@@ -88,48 +94,23 @@ export default function EntityTable({
             );
           })}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              count={controlledPageCount}
+              page={pageIndex}
+              rowsPerPage={pageSize}
+              rowsPerPageOptions={pageSizeOptions}
+              labelRowsPerPage="Show"
+              onChangeRowsPerPage={(e) => {
+                setPageSize(Number(e.target.value));
+              }}
+              onChangePage={(e, page) => gotoPage(e, page)}
+              ActionsComponent={TablePaginationActions}
+            />
+          </TableRow>
+        </TableFooter>
       </Table>
-      <div>
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          First
-        </button>
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          Previous
-        </button>
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          Next
-        </button>
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          Last
-        </button>
-        <div>
-          Page{' '}
-          <em>
-            {pageIndex + 1} of {controlledPageCount}
-          </em>
-        </div>
-        <div>Go to page:</div>
-        <input
-          type="number"
-          defaultValue={pageIndex + 1 || 1}
-          onChange={(e) => {
-            const page = e.target.value ? Number(e.target.value) - 1 : 0;
-            gotoPage(page);
-          }}
-        />
-        <select
-          value={pageSize}
-          onChange={(e) => {
-            setPageSize(Number(e.target.value));
-          }}
-        >
-          {pageSizeOptions.map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
     </div>
   );
 }
