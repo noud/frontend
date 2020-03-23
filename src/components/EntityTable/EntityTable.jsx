@@ -12,7 +12,9 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TablePaginationActions from './TablePaginationActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-export default function EntityTable({
+export default function EntityTable(props) {
+
+const {
   columns = [],
   data,
   actions,
@@ -21,10 +23,18 @@ export default function EntityTable({
   fetchData,
   defaultPageSize = 10,
   pageCount: controlledPageCount,
-}) {
+} = props;
+
   const pageSizeOptions = [1, 10, 20, 50, 100];
 
-  // console.log('EntityTable data', data);
+  var currentPageSize = 1;
+  if ("pageSize" in window) {
+    currentPageSize =  pageSize;
+  }
+  var currentPageIndex = 0;
+  if ("pageIndex" in window) {
+    currentPageIndex = pageIndex;
+  }
 
   // Use the state and functions returned from useTable to build your UI
   const {
@@ -47,8 +57,9 @@ export default function EntityTable({
       columns,
       data,
       initialState: {
-        pageSize: defaultPageSize,
+        pageSize: currentPageSize,
         pageIndex: 0,
+        // pageIndex: currentPageIndex,
         entityName,
         actions,
       },
@@ -60,9 +71,32 @@ export default function EntityTable({
   );
 
   React.useEffect(() => {
-    let pi = pageIndex;
-    fetchData({ pageIndex: pi, pageSize });
+    fetchData({ pageIndex, pageSize });
   }, [fetchData, pageIndex, pageSize]);
+
+  const changePage = (e, page) => {
+    // NOTE: without this check, there is an issue with "material-ui" TablePagination component
+    // which triggers changePage() with e = null, page = 0.
+    if(e) {
+      // props.changePage(e, page);
+      gotoPage(e, page);
+    }
+  };
+
+  const onChangePage = (event, page) => {
+    console.log('event',event);
+    // const { onChangePage } = this.props
+    if (event && "function" === typeof onChangePage) {
+      // if (event) {
+      // only handle user initiated onChangePage events
+      // onChangePage(page);
+      console.log('event gotoPage', page);
+      gotoPage(event, page);
+    }
+  }
+
+  // var newPageIndex = (pageIndex > 0 && data.length === pageSize ) ? pageIndex : 0;
+  var newPageIndex = pageIndex;
 
   // Render the UI for your table
   return loading ? (
@@ -98,14 +132,14 @@ export default function EntityTable({
           <TableRow>
             <TablePagination
               count={controlledPageCount}
-              page={pageIndex}
+              page={newPageIndex}
               rowsPerPage={pageSize}
               rowsPerPageOptions={pageSizeOptions}
               labelRowsPerPage="Show"
               onChangeRowsPerPage={(e) => {
                 setPageSize(Number(e.target.value));
               }}
-              onChangePage={(e, page) => gotoPage(e, page)}
+              onChangePage={changePage}
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>

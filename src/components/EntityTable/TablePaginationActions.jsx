@@ -14,7 +14,19 @@ const useStyles1 = makeStyles((theme) => ({
   },
 }));
 
-export default function TablePaginationActions({ count, page, rowsPerPage, onChangePage }) {
+export default function TablePaginationActions(props) {
+// https://github.com/mui-org/material-ui/issues/13995
+
+  console.log('TablePaginationActions props',props);
+
+const { count, page, rowsPerPage, onChangePage } = props;
+
+console.log('TablePaginationActions page',page);
+  // early escape
+  // if (page <= 0) {
+  //   return;
+  // }
+
   const classes = useStyles1();
   const theme = useTheme();
 
