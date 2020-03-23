@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { setState, useState } from 'react';
 import { useTable, useSortBy, usePagination } from 'react-table';
 
 import Table from '@material-ui/core/Table';
@@ -13,7 +13,6 @@ import TablePaginationActions from './TablePaginationActions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export default function EntityTable(props) {
-
 const {
   columns = [],
   data,
@@ -21,9 +20,14 @@ const {
   entityName,
   loading,
   fetchData,
-  defaultPageSize = 10,
+  defaultPageSize = 1,
   pageCount: controlledPageCount,
 } = props;
+
+// var state = {
+//   data: data,
+// };
+// const [data, setData] = React.useState(data);
 
   const pageSizeOptions = [1, 10, 20, 50, 100];
 
@@ -31,7 +35,7 @@ const {
   if ("pageSize" in window) {
     currentPageSize =  pageSize;
   }
-  var currentPageIndex = 0;
+  var currentPageIndex = -1;
   if ("pageIndex" in window) {
     currentPageIndex = pageIndex;
   }
@@ -58,8 +62,8 @@ const {
       data,
       initialState: {
         pageSize: currentPageSize,
-        pageIndex: 0,
-        // pageIndex: currentPageIndex,
+        // pageIndex: 0,
+        pageIndex: currentPageIndex,
         entityName,
         actions,
         // manualPagination: true,
@@ -103,7 +107,7 @@ const {
   // var newPageIndex = (pageIndex > 0 && data.length === pageSize ) ? pageIndex : 0;
   // var newPageIndex = (pageIndex > 0 && pageIndex != oldPageIndex ) ? pageIndex : oldPageIndex;
   var newPageIndex = oldPageIndex;
-  if (pageIndex > 0 && pageIndex != oldPageIndex ) {
+  if (pageIndex > -1 && pageIndex != oldPageIndex ) {
     newPageIndex = pageIndex;
     setOldPageIndex(newPageIndex);
   }
@@ -152,6 +156,9 @@ const {
               labelRowsPerPage="Show"
               onChangeRowsPerPage={(e) => {
                 setPageSize(Number(e.target.value));
+                // this.forceUpdate();
+                // setData({data});
+                // setverState({page});
               }}
               onChangePage={(e, page) => gotoPage(e, page)}
               ActionsComponent={TablePaginationActions}

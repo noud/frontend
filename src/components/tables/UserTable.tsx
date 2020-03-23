@@ -20,7 +20,7 @@ export default function UsersTable() {
     //   setQRefresh(qRefresh + 1)
     // },
     fetchPolicy: 'cache-and-network',
-    variables: { first: defaultPageSize, page: 0 },
+    variables: { first: defaultPageSize, page: -1 },
   });
 
   const fetchIdRef = React.useRef(0);
@@ -35,7 +35,7 @@ export default function UsersTable() {
     if (fetchId > 1 && fetchId === fetchIdRef.current) {
       variables.first = pageSize;
       // variables.page = variables.page;
-      if (pageIndex != 0) {
+      if (pageIndex != -1) {
         console.log('fetchData pageSize',pageSize);
         console.log('fetchData pageIndex',pageIndex);
         console.log('fetchData variables.first',variables.first);
