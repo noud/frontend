@@ -10,6 +10,10 @@ Login uses [OAuth2](https://en.wikipedia.org/wiki/OAuth#OAuth_2.0) authenticatio
 
 ![dashboard](./docs/dashboard.png?raw=true "dashboard")
 
+### Users table and [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
+
+![user_crud](./docs/user_crud.png?raw=true "user_crud")
+
 ## [SaaS repository](https://github.com/noud/saas/)
 
 SaaS conform [Google Search](https://developers.google.com/search) [Structured data](https://developers.google.com/search/docs/data-types/local-business) Backend
