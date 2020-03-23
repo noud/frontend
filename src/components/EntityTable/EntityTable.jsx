@@ -155,7 +155,9 @@ const {
               rowsPerPageOptions={pageSizeOptions}
               labelRowsPerPage="Show"
               onChangeRowsPerPage={(e) => {
-                setPageSize(Number(e.target.value));
+                const newPageSize = Number(e.target.value);
+                setPageSize(newPageSize);
+                currentPageSize = newPageSize;
                 // this.forceUpdate();
                 // setData({data});
                 // setverState({page});
