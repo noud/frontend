@@ -62,9 +62,12 @@ const {
         // pageIndex: currentPageIndex,
         entityName,
         actions,
+        // manualPagination: true,
+        // pageCount: controlledPageCount,
       },
       manualPagination: true,
       pageCount: controlledPageCount,
+      // usePagination
     },
     useSortBy,
     usePagination
@@ -74,29 +77,40 @@ const {
     fetchData({ pageIndex, pageSize });
   }, [fetchData, pageIndex, pageSize]);
 
-  const changePage = (e, page) => {
-    // NOTE: without this check, there is an issue with "material-ui" TablePagination component
-    // which triggers changePage() with e = null, page = 0.
-    if(e) {
-      // props.changePage(e, page);
-      gotoPage(e, page);
-    }
-  };
+  // const changePage = (e, page) => {
+  //   // NOTE: without this check, there is an issue with "material-ui" TablePagination component
+  //   // which triggers changePage() with e = null, page = 0.
+  //   if(e) {
+  //     // props.changePage(e, page);
+  //     gotoPage(e, page);
+  //   }
+  // };
 
-  const onChangePage = (event, page) => {
-    console.log('event',event);
-    // const { onChangePage } = this.props
-    if (event && "function" === typeof onChangePage) {
-      // if (event) {
-      // only handle user initiated onChangePage events
-      // onChangePage(page);
-      console.log('event gotoPage', page);
-      gotoPage(event, page);
-    }
-  }
+  // const onChangePage = (event, page) => {
+  //   console.log('event',event);
+  //   // const { onChangePage } = this.props
+  //   if (event && "function" === typeof onChangePage) {
+  //     // if (event) {
+  //     // only handle user initiated onChangePage events
+  //     // onChangePage(page);
+  //     console.log('event gotoPage', page);
+  //     gotoPage(event, page);
+  //   }
+  // }
+
+  const [oldPageIndex, setOldPageIndex] = React.useState(0);
 
   // var newPageIndex = (pageIndex > 0 && data.length === pageSize ) ? pageIndex : 0;
-  var newPageIndex = pageIndex;
+  // var newPageIndex = (pageIndex > 0 && pageIndex != oldPageIndex ) ? pageIndex : oldPageIndex;
+  var newPageIndex = oldPageIndex;
+  if (pageIndex > 0 && pageIndex != oldPageIndex ) {
+    newPageIndex = pageIndex;
+    setOldPageIndex(newPageIndex);
+  }
+  
+  // var newPageIndex = pageIndex;
+
+  console.log('newPageIndex',newPageIndex);
 
   // Render the UI for your table
   return loading ? (
@@ -139,7 +153,7 @@ const {
               onChangeRowsPerPage={(e) => {
                 setPageSize(Number(e.target.value));
               }}
-              onChangePage={changePage}
+              onChangePage={(e, page) => gotoPage(e, page)}
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>
