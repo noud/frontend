@@ -1,15 +1,16 @@
 import React from 'react';
 
-import SimpleCard from '../SimpleCard/SimpleCard';
 import EntityTable from '../EntityTable/EntityTable';
 import UserSchema from '../schemas/UserSchema';
 import { useGetUsersQuery, useDeleteUserMutation } from '../../graphql';
 import { getColumnDefinitions } from '../../lib';
 
+import TableContainer from '@material-ui/core/TableContainer'
+
 const columnDefinitions = getColumnDefinitions(UserSchema);
 
 export default function UsersTable() {
-  const defaultPageSize = 1;
+  const defaultPageSize = 2;
 
   // const [qRefresh, setQRefresh] = React.useState(0)
 
@@ -73,14 +74,7 @@ export default function UsersTable() {
   };
 
   return (
-    <SimpleCard
-      heading="Users"
-      button={{
-        text: 'add',
-        link: '/user/insert',
-      }}
-      removeSpacing={true}
-    >
+    <TableContainer>
       <EntityTable
         entityName="user"
         columns={columnDefinitions}
@@ -91,6 +85,6 @@ export default function UsersTable() {
         defaultPageSize={defaultPageSize}
         pageCount={pageCount}
       />
-    </SimpleCard>
+    </TableContainer>
   );
 }
