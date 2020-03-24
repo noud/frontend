@@ -2,11 +2,12 @@ import React, { setState, useState } from 'react';
 import { useTable, useSortBy, usePagination } from 'react-table';
 
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
-import TableFooter from '@material-ui/core/TableFooter';
+import TableBody from '@material-ui/core/TableBody';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import TableRow from '@material-ui/core/TableRow';
+import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 
 import TablePaginationActions from './TablePaginationActions';
@@ -122,13 +123,23 @@ const {
   ) : (
     <div>
       <Table {...getTableProps()}>
-        <TableHead>
-          {headerGroups.map((headerGroup) => (
+      <TableHead>
+          {headerGroups.map(headerGroup => (
             <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <TableCell {...column.getHeaderProps(column.getSortByToggleProps())}>
+              {headerGroup.headers.map(column => (
+                <TableCell
+                  {...(column.id === 'selection'
+                    ? column.getHeaderProps()
+                    : column.getHeaderProps(column.getSortByToggleProps()))}
+                >
                   {column.render('Header')}
-                  <span>{column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}</span>
+                  {column.id !== 'selection' ? (
+                    <TableSortLabel
+                      active={column.isSorted}
+                      // react-table has a unsorted state which is not treated here
+                      direction={column.isSortedDesc ? 'desc' : 'asc'}
+                    />
+                  ) : null}
                 </TableCell>
               ))}
             </TableRow>
