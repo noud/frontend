@@ -28,7 +28,7 @@ const Root: React.FunctionComponent<RootProps> = (props: RootProps): JSX.Element
       <CssBaseline />
       <Global styles={globalStyles} />
       <Helmet>
-        <title>SaaS</title>
+        <title>React GraphQL front</title>
       </Helmet>
       <ScrollTop>
         <ThemeProvider theme={Themes.default}>
