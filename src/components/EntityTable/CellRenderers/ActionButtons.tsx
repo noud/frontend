@@ -1,8 +1,15 @@
 import React from 'react';
-import ActionButton from './ActionButton';
+import { makeStyles } from '@material-ui/core/styles';
+import DeleteButton from './DeleteButton';
+import EditButton from './EditButton';
 
-import IconButton from '@material-ui/core/IconButton';
-import { Delete, Edit } from '@material-ui/icons';
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 export default function ActionButtons(props) {
   const { row = [], data = [], initialState = {} } = props;
@@ -10,14 +17,14 @@ export default function ActionButtons(props) {
   const { id } = row.original;
   const { entityName, actions } = initialState;
 
+  const classes = useStyles();
+
   return (
     <React.Fragment>
-      <IconButton aria-label="edit" key="edit" entityId={id} entityName={entityName} actionType="edit" actions={actions}>
-        <Edit />
-      </IconButton>
-      <IconButton aria-label="delete" key="delete" entityId={id} entityName={entityName} actionType="delete" actions={actions}>
-        <Delete />
-      </IconButton>
+      <div className={classes.root}>
+        <EditButton key="edit" entityId={id} entityName={entityName} actionType="edit" actions={actions} />
+        <DeleteButton key="delete" entityId={id} entityName={entityName} actionType="delete" actions={actions} />
+      </div>
     </React.Fragment>
   );
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import defaultActions from '../../../lib/defaultActions';
+
+import IconButton from '@material-ui/core/IconButton';
+import { Delete } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ActionButton = (props: any) => {
+const DeleteButton = (props: any) => {
   const { actionType, entityName, entityId, actions } = props;
 
   const history = useHistory();
@@ -23,16 +25,20 @@ const ActionButton = (props: any) => {
     e.preventDefault();
     defaultActions[actionType](entityName, entityId, { history, actions });
   }
-
   return (
     <Tooltip title={actionType}>
       <div>
-        <Button variant="contained" className={classes.actionButton} onClick={handleClick}>
-          {actionType}
-        </Button>
+        <IconButton
+          aria-label="delete"
+          className={classes.actionButton}
+          onClick={handleClick}
+          variant="contained"
+        >
+          <Delete />
+        </IconButton>
       </div>
     </Tooltip>
   );
 };
 
-export default ActionButton;
+export default DeleteButton;
