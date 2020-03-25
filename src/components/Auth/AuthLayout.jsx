@@ -11,7 +11,7 @@ function Login({ children }) {
       <div className={classes.logotypeContainer}>
         <Typography className={classes.logotypeText}></Typography>
         <img src={logo} alt="Logo" className={classes.logotypeImage} />
-        <Typography className={classes.underscript}>Software as a service (SaaS)</Typography>
+        <Typography className={classes.underscript}>connecting to API from Software as a service (SaaS) back-end, made with Laravel</Typography>
         <Typography color="primary" className={classes.copyright}>
           © {new Date().getFullYear()} Noud de Brouwer
         </Typography>

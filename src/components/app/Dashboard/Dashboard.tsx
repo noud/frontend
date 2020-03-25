@@ -21,7 +21,7 @@ class Index extends React.PureComponent<{}, IndexState> {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Software as a service (SaaS)
+        connecting to API from Software as a service (SaaS) back-end, made with Laravel
         </p>
       </header>
     </div>
