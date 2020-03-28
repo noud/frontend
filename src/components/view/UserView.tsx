@@ -45,7 +45,7 @@ const UserView = function() {
   );
   const classes = useStyles();
 
-  return data && data!.apollo_single_user! ? (
+  return data && data!.apolloSingleUser! ? (
     <SimpleCard
       heading="View user"
       arrowBack={{
@@ -58,7 +58,7 @@ const UserView = function() {
         </Button>
       </div>
       <Table className={classes.table} size="small">
-        <TableBody>{Schema.objectKeys().map((key: string) => getTableRow(key, data.apollo_single_user))}</TableBody>
+        <TableBody>{Schema.objectKeys().map((key: string) => getTableRow(key, data.apolloSingleUser))}</TableBody>
       </Table>
     </SimpleCard>
   ) : (

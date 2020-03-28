@@ -180,7 +180,7 @@ export type Query = {
   _allUsersMeta?: Maybe<ListMetadata>;
   apollo_users: Array<User>;
   apollo_paginated_users?: Maybe<UserPaginator>;
-  apollo_single_user?: Maybe<User>;
+  apolloSingleUser?: Maybe<User>;
 };
 
 
@@ -211,7 +211,7 @@ export type QueryApollo_Paginated_UsersArgs = {
 };
 
 
-export type QueryApollo_Single_UserArgs = {
+export type QueryApolloSingleUserArgs = {
   id?: Maybe<Scalars['ID']>;
 };
 
@@ -338,7 +338,7 @@ export type GetUserQueryVariables = {
 
 export type GetUserQuery = (
   { __typename?: 'Query' }
-  & { apollo_single_user?: Maybe<(
+  & { apolloSingleUser?: Maybe<(
     { __typename?: 'User' }
     & UserQueryFieldsFragment
   )> }
@@ -436,7 +436,7 @@ export type GetUsersLazyQueryHookResult = ReturnType<typeof useGetUsersLazyQuery
 export type GetUsersQueryResult = ApolloReactCommon.QueryResult<GetUsersQuery, GetUsersQueryVariables>;
 export const GetUserDocument = gql`
     query GetUser($id: ID!) {
-  apollo_single_user(id: $id) {
+  apolloSingleUser(id: $id) {
     ...userQueryFields
   }
 }

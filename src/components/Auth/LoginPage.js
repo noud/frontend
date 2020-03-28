@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import UserStore, { loginUser, registerUser, forgotPassword } from '../../stores/UserStore';
+import AuthStore, { loginUser, registerUser, forgotPassword } from '../../stores/AuthStore';
 
 import { CircularProgress, Typography, Button, Tabs, Tab, TextField, Fade } from '@material-ui/core';
 import AuthLayout from './AuthLayout';
@@ -54,9 +54,9 @@ export default function Login() {
         setIsLoading(false);
 
         localStorage.setItem('id_token', login.access_token);
-        localStorage.setItem('user_name', login.user.name);
+        localStorage.setItem('user_id', login.user.id);
 
-        UserStore.set(
+        AuthStore.set(
           {
             isAuthenticated: true,
           },
@@ -93,7 +93,7 @@ export default function Login() {
 
         localStorage.setItem('id_token', register.tokens.access_token);
 
-        UserStore.set(
+        AuthStore.set(
           {
             isAuthenticated: true,
           },

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import queryString from 'query-string';
-import { updateForgottenPassword } from '../../stores/UserStore';
+import { updateForgottenPassword } from '../../stores/AuthStore';
 
 import { CircularProgress, Typography, Button, Tabs, Tab, TextField, Fade } from '@material-ui/core';
 import AuthLayout from './AuthLayout';

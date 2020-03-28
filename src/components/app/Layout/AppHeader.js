@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
@@ -13,7 +13,8 @@ import useStyles from './styles';
 import { Typography } from '../../Wrappers/Wrappers';
 
 // context
-import { signOut } from '../../../stores/UserStore';
+import { getUserName } from '../../Auth/getUserName';
+import { signOut } from '../../../stores/AuthStore';
 
 function Header() {
   const { t } = useTranslation('login');
@@ -24,13 +25,24 @@ function Header() {
   const [profileMenu, setProfileMenu] = useState(null);
   const [isSearchOpen, setSearchOpen] = useState(false);
 
-  const UserName = localStorage.getItem('user_name');
+  const UserId = localStorage.getItem('user_id');
+
+  var UserName = '';
+  // useEffect(() => {
+    // function handleStatusChange(status) {
+      UserName = getUserName(UserId);
+    // }
+  // });
+
+  function gotoUserProfile() {
+    history.push('/user/' + UserId + '/edit');
+  }
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" weight="medium" className={classes.logotype}>
-          React
+          React via GraphQL front-end
         </Typography>
         <div className={classes.grow} />
         <IconButton
@@ -56,7 +68,7 @@ function Header() {
             {UserName}
             </Typography>
           </div>
-          <MenuItem className={classNames(classes.profileMenuItem, classes.headerMenuItem)}>Profile</MenuItem>
+          <MenuItem className={classNames(classes.profileMenuLink)} onClick={() => gotoUserProfile()}>Profile</MenuItem>
           <div className={classes.profileMenuUser}>
             <Typography className={classes.profileMenuLink} color="primary" onClick={() => signOut(history)}>
               {t('Sign Out')}

@@ -30,7 +30,7 @@ export default function UserUpdateForm() {
   console.log('data',data);
 
   return data ? (
-    <UserForm type="update" handleSubmit={update} data={ data.apollo_single_user } />
+    <UserForm type="update" handleSubmit={update} data={ data.apolloSingleUser } />
   ) : (
     <CircularProgress />
   );

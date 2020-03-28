@@ -28,7 +28,7 @@ query GetUsers($first: Int!, $page: Int) {
   }
   
   query GetUser($id: ID!) {
-    apollo_single_user(id: $id){
+    apolloSingleUser(id: $id){
       ...userQueryFields
     }
   }

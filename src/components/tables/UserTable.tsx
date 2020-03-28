@@ -37,14 +37,8 @@ export default function UsersTable() {
       variables.first = pageSize;
       // variables.page = variables.page;
       if (pageIndex != -1) {
-        console.log('fetchData pageSize',pageSize);
-        console.log('fetchData pageIndex',pageIndex);
-        console.log('fetchData variables.first',variables.first);
-        console.log('fetchData variables.page',variables.page);
-
         variables.page = pageIndex + 1; // Note: we add 1 because backend expects the first page to equal 1 (not 0)
         refetch(variables);
-        console.log('fetchData refetch',variables);
       }
 
       // refetch(variables);
@@ -57,11 +51,9 @@ export default function UsersTable() {
   // Update the pageCount if necessary
   if (result.paginatorInfo) {
     const newPageCount = Math.ceil(result.paginatorInfo.total / result.paginatorInfo.perPage);
-    // console.log('set pageCount',pageCount,newPageCount);
 
     if (newPageCount !== pageCount) {
       setPageCount(newPageCount);
-      // console.log('set newPageCount',newPageCount);
     }
   }
 

@@ -16,7 +16,7 @@ import UserUpdateForm from '../components/forms/update/UserUpdateForm';
 import UserView from '../components/view/UserView';
 
 // Contexts
-import UserStore from '../stores/UserStore';
+import AuthStore from '../stores/AuthStore';
 
 export default function Routes() {
   return (
@@ -37,7 +37,7 @@ export default function Routes() {
 }
 
 export function PrivateRoute({ component, ...rest }) {
-  const { isAuthenticated } = UserStore.use();
+  const { isAuthenticated } = AuthStore.use();
 
   return (
     <Route
@@ -61,7 +61,7 @@ export function PrivateRoute({ component, ...rest }) {
 }
 
 export function PublicRoute({ component, ...rest }) {
-  const { isAuthenticated } = UserStore.use();
+  const { isAuthenticated } = AuthStore.use();
 
   return (
     <Route

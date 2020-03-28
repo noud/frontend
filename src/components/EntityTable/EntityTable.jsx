@@ -18,21 +18,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { useCreateUserMutation } from '../../graphql';
 
 export default function EntityTable(props) {
-const {
-  columns = [],
-  data,
-  actions,
-  entityName,
-  loading,
-  fetchData,
-  defaultPageSize = 2,
-  pageCount: controlledPageCount,
-} = props;
-
-// var state = {
-//   data: data,
-// };
-// const [data, setData] = React.useState(data);
+  const {
+    columns = [],
+    data,
+    actions,
+    entityName,
+    loading,
+    fetchData,
+    defaultPageSize = 2,
+    pageCount: controlledPageCount,
+  } = props;
 
   const pageSizeOptions = [1, 2, 10, 20, 50, 100];
 
@@ -56,7 +51,7 @@ const {
     page,
     preGlobalFilteredRows,
     setGlobalFilter,
-    state: { pageIndex, pageSize, selectedRowIds, globalFilter },
+    state: { selectedRowIds, pageSize, pageIndex, sortBy, hiddenColumns, entityName: entityNameFromTable, actions: actionsFromTable, globalFilter },
     gotoPage,
     previousPage,
     nextPage,
@@ -94,41 +89,14 @@ const {
     fetchData({ pageIndex, pageSize });
   }, [fetchData, pageIndex, pageSize]);
 
-  // const changePage = (e, page) => {
-  //   // NOTE: without this check, there is an issue with "material-ui" TablePagination component
-  //   // which triggers changePage() with e = null, page = 0.
-  //   if(e) {
-  //     // props.changePage(e, page);
-  //     gotoPage(e, page);
-  //   }
-  // };
-
-  // const onChangePage = (event, page) => {
-  //   console.log('event',event);
-  //   // const { onChangePage } = this.props
-  //   if (event && "function" === typeof onChangePage) {
-  //     // if (event) {
-  //     // only handle user initiated onChangePage events
-  //     // onChangePage(page);
-  //     console.log('event gotoPage', page);
-  //     gotoPage(event, page);
-  //   }
-  // }
-
   const [oldPageIndex, setOldPageIndex] = React.useState(0);
 
-  // var newPageIndex = (pageIndex > 0 && data.length === pageSize ) ? pageIndex : 0;
-  // var newPageIndex = (pageIndex > 0 && pageIndex != oldPageIndex ) ? pageIndex : oldPageIndex;
   var newPageIndex = oldPageIndex;
   if (pageIndex > -1 && pageIndex != oldPageIndex ) {
     newPageIndex = pageIndex;
     setOldPageIndex(newPageIndex);
   }
-  
-  // var newPageIndex = pageIndex;
 
-  console.log('newPageIndex',newPageIndex);
-  
   const deleteUserHandler = event => {
     const newData = removeByIndexs(
       data,
@@ -141,7 +109,7 @@ const {
 
   const addUserHandler = user => {
     const newData = data.concat([user])
-    // setData(newData)
+
     const [create, { loading, error }] = useCreateUserMutation({
       variables: {
         name: user.name,
@@ -151,7 +119,6 @@ const {
         console.log('onCompleted')
         history.goBack();
       },
-      // onCompleted: () => history.goBack(),
     });
   }
 
@@ -170,7 +137,7 @@ const {
         addUserHandler={addUserHandler}
         preGlobalFilteredRows={preGlobalFilteredRows}
         setGlobalFilter={setGlobalFilter}
-        globalFilter={globalFilter}
+        globalFilter={globalFilter || ''}
       />
       <Table {...getTableProps()}>
       <TableHead>
