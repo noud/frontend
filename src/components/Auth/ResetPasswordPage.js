@@ -21,7 +21,7 @@ export default function ResetPassword(props) {
 
   const history = useHistory();
   const classes = useStyles();
-  const { t, i18n } = useTranslation('login');
+  const { t, i18n } = useTranslation('auth');
 
   // local
   const [isLoading, setIsLoading] = useState(false);

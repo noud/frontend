@@ -13,7 +13,7 @@ import useStyles from './styles';
 import { callOnEnter } from '../../lib';
 
 export default function Login() {
-  const { t } = useTranslation('login');
+  const { t } = useTranslation('auth');
   const history = useHistory();
   const classes = useStyles();
 

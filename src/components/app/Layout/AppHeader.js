@@ -17,7 +17,7 @@ import { getUserName } from '../../Auth/getUserName';
 import { signOut } from '../../../stores/AuthStore';
 
 function Header() {
-  const { t } = useTranslation('login');
+  const { t } = useTranslation('auth');
   const history = useHistory();
   const classes = useStyles();
 
