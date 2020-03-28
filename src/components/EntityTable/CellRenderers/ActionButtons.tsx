@@ -5,9 +5,7 @@ import EditButton from './EditButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    '& > *': {
-      margin: theme.spacing(1),
-    },
+      display: "inline-flex",
   },
 }));
 
@@ -21,9 +19,13 @@ export default function ActionButtons(props) {
 
   return (
     <React.Fragment>
-      <div className={classes.root}>
-        <EditButton key="edit" entityId={id} entityName={entityName} actionType="edit" actions={actions} />
-        <DeleteButton key="delete" entityId={id} entityName={entityName} actionType="delete" actions={actions} />
+      <div>
+        <div className={classes.root}>
+          <EditButton key="edit" entityId={id} entityName={entityName} actionType="edit" actions={actions} />
+        </div>
+        <div className={classes.root}>
+          <DeleteButton key="delete" entityId={id} entityName={entityName} actionType="delete" actions={actions} />
+        </div>
       </div>
     </React.Fragment>
   );
