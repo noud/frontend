@@ -1,9 +1,9 @@
 import entities from './entities';
-import login from './login';
+import auth from './auth';
 import strings from './strings';
 
 export default {
   entities,
-  login,
+  auth,
   strings,
 };
