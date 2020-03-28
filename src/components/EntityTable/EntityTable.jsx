@@ -13,6 +13,8 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 
 import TablePaginationActions from './TablePaginationActions';
+import EnhancedTableToolbar from './EnhancedTableToolbar';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { useCreateUserMutation } from '../../graphql';
@@ -123,7 +125,45 @@ export default function EntityTable(props) {
   }
 
   // const currntNumSelected = Object.keys(selectedRowIds).length;
+  // const currntNumSelected = selected.length;
   const currntNumSelected = 0;
+
+  /**
+   * select boxes
+   */
+
+  const [selected, setSelected] = React.useState([]);
+
+  const handleSelectAllClick = event => {
+    if (event.target.checked) {
+      const newSelecteds = rows.map(n => n.name);
+      setSelected(newSelecteds);
+      return;
+    }
+    setSelected([]);
+  };
+
+  const handleClick = (event, name) => {
+    const selectedIndex = selected.indexOf(name);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, name);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1),
+      );
+    }
+
+    setSelected(newSelected);
+  };
+  
+  const isSelected = name => selected.indexOf(name) !== -1;
 
   // Render the UI for your table
   return loading ? (
@@ -139,6 +179,15 @@ export default function EntityTable(props) {
         setGlobalFilter={setGlobalFilter}
         globalFilter={globalFilter || ''}
       />
+      {/* <EnhancedTableToolbar
+        // numSelected={Object.keys(selectedRowIds).length}
+        numSelected={currntNumSelected}
+        deleteUserHandler={deleteUserHandler}
+        addUserHandler={addUserHandler}
+        preGlobalFilteredRows={preGlobalFilteredRows}
+        setGlobalFilter={setGlobalFilter}
+        globalFilter={globalFilter || ''}
+      /> */}
       <Table {...getTableProps()}>
       <TableHead>
           {headerGroups.map(headerGroup => (
@@ -164,6 +213,7 @@ export default function EntityTable(props) {
         </TableHead>
         <TableBody {...getTableBodyProps()}>
           {page.map((row, i) => {
+            const isItemSelected = isSelected(row.name);
             prepareRow(row);
             return (
               <TableRow {...row.getRowProps()}>
