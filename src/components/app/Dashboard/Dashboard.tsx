@@ -25,7 +25,7 @@ class Index extends React.PureComponent<{}, IndexState> {
 
   public render() {
     // const browserTabTitle = getSubTitle();
-    const browserTabTitle = 'connecting to API from Software as a service (SaaS) back-end, made with Laravel';
+    const browserTabTitle = 'connecting to API from Software as a service (SaaS) back end, made with Laravel';
 
     return (
       <div className="App">

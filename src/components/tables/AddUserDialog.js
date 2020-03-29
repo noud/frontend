@@ -68,7 +68,7 @@ const AddUserDialog = props => {
       >
         <DialogTitle id="form-dialog-title">Add User</DialogTitle>
         <DialogContent>
-          <DialogContentText>Add new User to SaaS back-end.</DialogContentText>
+          <DialogContentText>Add new User to SaaS back end.</DialogContentText>
           <TextField
             autoFocus
             margin="dense"
