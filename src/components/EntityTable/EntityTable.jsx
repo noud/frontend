@@ -3,9 +3,9 @@ import { useHistory } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
-import { useFilters, useGlobalFilter, usePagination, useRowSelect, useSortBy, useTable } from 'react-table';
+import { useFilters, useGlobalFilter, useGroupBy, usePagination, useRowSelect, useSortBy, useTable } from 'react-table';
 
 import TableToolbar from './TableToolbar'
 import Table from '@material-ui/core/Table';
@@ -24,6 +24,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { useCreateUserMutation } from '../../graphql';
 
+/**
+ * https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/kitchen-sink
+ * @param {*} props 
+ */
 export default function EntityTable(props) {
   const {
     columns = [],
@@ -37,6 +41,19 @@ export default function EntityTable(props) {
   } = props;
 
   const { t } = useTranslation('table');
+  
+  const styles = {
+    invisable: {
+      display: "none",
+    },
+    normal: {
+      display: "",
+    },
+  }
+
+  /**
+   * pagination
+   */
 
   const pageSizeOptions = [1, 2, 10, 20, 50, 100];
 
@@ -139,7 +156,7 @@ export default function EntityTable(props) {
     useSortBy,
     usePagination,
     useRowSelect
-);
+  );
 
   React.useEffect(() => {
     fetchData({ pageIndex, pageSize, search });
@@ -237,7 +254,6 @@ export default function EntityTable(props) {
         onChange={(e) => {
           setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
           // store search and perform graphql
-          console.log(fieldName);
           search[fieldName] = e.target.value;
           fetchData({ pageIndex, pageSize, searchTerms: search });
         }}
@@ -274,12 +290,13 @@ export default function EntityTable(props) {
       <TableHead>
           {headerGroups.map(headerGroup => (
             <TableRow {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <TableCell
-                  {...(column.id === 'selection'
-                    ? column.getHeaderProps()
-                    : column.getHeaderProps(column.getSortByToggleProps()))}
-                >
+              {headerGroup.headers.map((column, index) => (
+                  <TableCell
+                    {...(column.id === 'selection'
+                      ? column.getHeaderProps()
+                      : column.getHeaderProps(column.getSortByToggleProps()))}
+                    style={index === 0 ? styles.invisable : styles.normal}
+                  >
                   {column.render('Header')}
                   {column.id !== 'selection' ? (
                     <TableSortLabel
@@ -300,8 +317,11 @@ export default function EntityTable(props) {
             prepareRow(row);
             return (
               <TableRow {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>;
+                {row.cells.map((cell, index) => {
+                  const style = index === 0 ? styles.invisable : styles.normal;
+                  return (
+                      <TableCell style={style} {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>
+                  )
                 })}
               </TableRow>
             );

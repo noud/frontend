@@ -5,7 +5,7 @@ import EditButton from './EditButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
-      display: "inline-flex",
+    display: "inline-flex",
   },
 }));
 
