@@ -15,8 +15,8 @@ fragment userQueryFields on User {
 #     }
 #   }
 
-query GetUsers($first: Int!, $page: Int) {
-    apollo_paginated_users(first: $first, page: $page) {
+query GetUsers($first: Int!, $page: Int, $name: String, $email: String) {
+    apollo_paginated_users(first: $first, page: $page, name: $name, email: $email) {
       data {
         ...userQueryFields
       }

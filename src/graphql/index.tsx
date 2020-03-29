@@ -206,6 +206,8 @@ export type QueryOpencrud_UserArgs = {
 
 
 export type QueryApollo_Paginated_UsersArgs = {
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
   first: Scalars['Int'];
   page?: Maybe<Scalars['Int']>;
 };
@@ -314,6 +316,8 @@ export type UserQueryFieldsFragment = (
 export type GetUsersQueryVariables = {
   first: Scalars['Int'];
   page?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
 };
 
 
@@ -395,8 +399,8 @@ export const UserQueryFieldsFragmentDoc = gql`
 }
     `;
 export const GetUsersDocument = gql`
-    query GetUsers($first: Int!, $page: Int) {
-  apollo_paginated_users(first: $first, page: $page) {
+    query GetUsers($first: Int!, $page: Int, $name: String, $email: String) {
+  apollo_paginated_users(first: $first, page: $page, name: $name, email: $email) {
     data {
       ...userQueryFields
     }
@@ -422,6 +426,8 @@ export const GetUsersDocument = gql`
  *   variables: {
  *      first: // value for 'first'
  *      page: // value for 'page'
+ *      name: // value for 'name'
+ *      email: // value for 'email'
  *   },
  * });
  */
