@@ -1,9 +1,11 @@
 import React, { setState, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
+
 import { makeStyles } from '@material-ui/core/styles';
 
-import { useGlobalFilter, usePagination, useRowSelect, useSortBy, useTable } from 'react-table';
+import { useFilters, useGlobalFilter, usePagination, useRowSelect, useSortBy, useTable } from 'react-table';
 
 import TableToolbar from './TableToolbar'
 import Table from '@material-ui/core/Table';
@@ -34,6 +36,8 @@ export default function EntityTable(props) {
     pageCount: controlledPageCount,
   } = props;
 
+  const { t } = useTranslation('table');
+
   const pageSizeOptions = [1, 2, 10, 20, 50, 100];
 
   var currentPageSize = defaultPageSize;
@@ -44,6 +48,50 @@ export default function EntityTable(props) {
   if ("pageIndex" in window) {
     currentPageIndex = pageIndex;
   }
+
+  /**
+   * column filters constants
+   */
+
+  const [search, setSearch] = useState([]);
+
+  // @todo below outcommented but is the key to different filter cells
+
+  // function fuzzyTextFilterFn(rows, id, filterValue) {
+  //   return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] });
+  // }
+
+  // // Let the table remove the filter if the string is empty
+  // fuzzyTextFilterFn.autoRemove = (val) => !val;
+
+  const filterTypes = React.useMemo(
+    () => ({
+      //     // Add a new fuzzyTextFilterFn filter type.
+      // fuzzyText: fuzzyTextFilterFn,
+      //     // Or, override the default text filter to use
+      //     // "startWith"
+      // text: (rows, id, filterValue) => {
+      //       // return rows.filter((row) => {
+      //       //   const rowValue = row.values[id];
+      //       //   return rowValue !== undefined
+      //       //     ? String(rowValue)
+      //       //       .toLowerCase()
+      //       //       .startsWith(String(filterValue).toLowerCase())
+      //       //     : true;
+      //       // });
+      // },
+    }),
+    []
+  );
+
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: DefaultColumnFilter,
+    }),
+    []
+  );
 
   // Use the state and functions returned from useTable to build your UI
   const {
@@ -76,6 +124,8 @@ export default function EntityTable(props) {
         // manualPagination: true,
         // pageCount: controlledPageCount,
       },
+      defaultColumn, // Be sure to pass the defaultColumn option
+      filterTypes,
       manualPagination: true,
       pageCount: controlledPageCount,
       // @todo
@@ -84,6 +134,7 @@ export default function EntityTable(props) {
       usePagination,
       useRowSelect
     },
+    useFilters,
     useGlobalFilter,
     useSortBy,
     usePagination,
@@ -91,8 +142,8 @@ export default function EntityTable(props) {
 );
 
   React.useEffect(() => {
-    fetchData({ pageIndex, pageSize });
-  }, [fetchData, pageIndex, pageSize]);
+    fetchData({ pageIndex, pageSize, search });
+  }, [fetchData, pageIndex, pageSize, search]);
 
   const [oldPageIndex, setOldPageIndex] = React.useState(0);
 
@@ -168,6 +219,34 @@ export default function EntityTable(props) {
   
   const isSelected = name => selected.indexOf(name) !== -1;
 
+  /**
+   * column filters
+   */
+
+  // https://codesandbox.io/s/github/tannerlinsley/react-table/tree/master/examples/filtering
+  // Define a default UI for filtering
+  function DefaultColumnFilter(props) {
+    const {
+      fieldName,
+      column: { filterValue, preFilteredRows, setFilter },
+    } = props;
+    const count = preFilteredRows.length;
+    return (
+      <input
+        value={filterValue || ''}
+        onChange={(e) => {
+          setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
+          // store search and perform graphql
+          console.log(fieldName);
+          search[fieldName] = e.target.value;
+          fetchData({ pageIndex, pageSize, searchTerms: search });
+        }}
+        placeholder={t("Search records")}
+        name={fieldName}
+      />
+    );
+  }
+
   // Render the UI for your table
   return loading ? (
     <CircularProgress />
@@ -209,6 +288,7 @@ export default function EntityTable(props) {
                       direction={column.isSortedDesc ? 'desc' : 'asc'}
                     />
                   ) : null}
+                  <div>{column.canFilter ? column.render('Filter', { fieldName: column.id }) : null}</div>
                 </TableCell>
               ))}
             </TableRow>
@@ -234,7 +314,7 @@ export default function EntityTable(props) {
               page={newPageIndex}
               rowsPerPage={pageSize}
               rowsPerPageOptions={pageSizeOptions}
-              labelRowsPerPage="Show"
+              labelRowsPerPage={t("Show")}
               onChangeRowsPerPage={(e) => {
                 const newPageSize = Number(e.target.value);
                 setPageSize(newPageSize);

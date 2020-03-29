@@ -20,8 +20,8 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     // debug: true,
-    lng: 'nl-NL',
-    fallbackLng: 'en-US',
+    lng: 'en-US',
+    fallbackLng: 'nl-NL',
     react: {
       useSuspense: false,
     },

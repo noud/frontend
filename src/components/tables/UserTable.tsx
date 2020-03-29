@@ -28,17 +28,23 @@ export default function UsersTable() {
 
   const [pageCount, setPageCount] = React.useState(0);
 
-  const fetchData = React.useCallback(({ pageSize, pageIndex }) => {
+  const fetchData = React.useCallback(({ pageSize, pageIndex, searchTerms }) => {
     // Give this fetch an ID
     const fetchId = ++fetchIdRef.current;
 
     // Only update the data if this is the latest fetch (and not the first, because we already fetched above)
     if (fetchId > 1 && fetchId === fetchIdRef.current) {
       variables.first = pageSize;
+      
       // variables.page = variables.page;
       if (pageIndex != -1) {
         variables.page = pageIndex + 1; // Note: we add 1 because backend expects the first page to equal 1 (not 0)
         refetch(variables);
+      }
+
+      // flatten the searchTerms
+      for (const key in searchTerms) {
+        variables[key] = '%' + searchTerms[key] + '%';
       }
 
       // refetch(variables);
