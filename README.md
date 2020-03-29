@@ -1,4 +1,4 @@
-# [React](https://reactjs.org/) [GraphQL](https://graphql.org/) [Frontend](https://en.wikipedia.org/wiki/Front_and_back_ends) to [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service) [Backend](https://en.wikipedia.org/wiki/Front_and_back_ends).
+# [React](https://reactjs.org/) [GraphQL](https://graphql.org/) [front-end](https://en.wikipedia.org/wiki/Front_and_back_ends) to [SaaS](https://en.wikipedia.org/wiki/Software_as_a_service) [back-end](https://en.wikipedia.org/wiki/Front_and_back_ends).
 
 ## Login
 
@@ -14,9 +14,9 @@ Login uses [OAuth2](https://en.wikipedia.org/wiki/OAuth#OAuth_2.0) authenticatio
 
 ![user_crud](./docs/user_crud.png?raw=true "user_crud")
 
-## [SaaS repository](https://github.com/noud/saas/)
+## [SaaS back-end repository](https://github.com/noud/saas/)
 
-SaaS conform [Google Search](https://developers.google.com/search) [Structured data](https://developers.google.com/search/docs/data-types/local-business) Backend
+SaaS conform [Google Search](https://developers.google.com/search) [Structured data](https://developers.google.com/search/docs/data-types/local-business) back-end
 
 ## Copyright & license
 
