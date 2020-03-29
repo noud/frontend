@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { hot } from 'react-hot-loader/root';
+import { useTranslation } from 'react-i18next';
 
 import { ApolloProvider } from '@apollo/react-components';
 import { ApolloClient } from 'apollo-client';
@@ -21,6 +22,15 @@ interface RootProps {
   apolloClient: ApolloClient<NormalizedCacheObject>;
 }
 
+function getBrowserTabbTitle() {
+  const { t: tApp } = useTranslation('app');
+  return tApp('browserTabTitle');
+}
+
+// @todo
+// const browserTabTitle = getBrowserTabbTitle();
+const browserTabTitle = 'React GraphQL front';
+
 const Root: React.FunctionComponent<RootProps> = (props: RootProps): JSX.Element => {
   const { apolloClient } = props;
   return (
@@ -28,7 +38,7 @@ const Root: React.FunctionComponent<RootProps> = (props: RootProps): JSX.Element
       <CssBaseline />
       <Global styles={globalStyles} />
       <Helmet>
-        <title>React GraphQL front</title>
+        <title>{browserTabTitle}</title>
       </Helmet>
       <ScrollTop>
         <ThemeProvider theme={Themes.default}>

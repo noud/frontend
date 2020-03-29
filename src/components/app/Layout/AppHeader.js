@@ -17,6 +17,7 @@ import { getUserName } from '../../Auth/getUserName';
 import { signOut } from '../../../stores/AuthStore';
 
 function Header() {
+  const { t: tApp } = useTranslation('app');
   const { t } = useTranslation('auth');
   const history = useHistory();
   const classes = useStyles();
@@ -42,7 +43,7 @@ function Header() {
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" weight="medium" className={classes.logotype}>
-          React via GraphQL front-end
+          {tApp('title')}
         </Typography>
         <div className={classes.grow} />
         <IconButton
