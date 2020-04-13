@@ -10,7 +10,7 @@ Login uses [OAuth2](https://en.wikipedia.org/wiki/OAuth#OAuth_2.0) authenticatio
 
 ![dashboard](./docs/dashboard.png?raw=true "dashboard")
 
-### Users table and [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
+### Users table and [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) w/ paginated GraphQL.
 
 ![user_crud](./docs/user_crud.png?raw=true "user_crud")
 
