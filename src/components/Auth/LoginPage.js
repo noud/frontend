@@ -10,6 +10,10 @@ import { CircularProgress, Typography, Button, Tabs, Tab, TextField, Fade } from
 import AuthLayout from './AuthLayout';
 import useStyles from './styles';
 
+import SocialButton from './SocialButton'
+const socialProvider = 'facebook' // Amazon, GitHub, Google, Instagram and LinkedIn
+const socialAppId = 'YOUR_APP_ID'
+
 import { callOnEnter } from '../../lib';
 
 export default function Login() {
@@ -164,6 +168,14 @@ export default function Login() {
 
   const registerMessage = isRegisterSubmitDisabled() || message;
 
+  const handleSocialLogin = (user) => {
+    console.log(user)
+  }
+  
+  const handleSocialLoginFailure = (err) => {
+    console.error(err)
+  }
+  
   return (
     <AuthLayout>
       <Tabs value={activeTabId} onChange={(e, id) => switchToTab(id)} indicatorColor="primary" textColor="primary" centered>
@@ -176,6 +188,15 @@ export default function Login() {
           <Typography variant="h2" className={classes.greeting}>
             {t('greeting')}
           </Typography>
+          <br />
+          <SocialButton
+            provider={socialProvider}
+            appId={socialAppId}
+            onLoginSuccess={handleSocialLogin}
+            onLoginFailure={handleSocialLoginFailure}
+          >
+            {t('Social Login', { provider: 'Facebook' })}
+          </SocialButton>
           <br />
           <TextField
             id="email"
