@@ -1,5 +1,6 @@
 import i18n from 'i18next';
-import Fetch from 'i18next-fetch-backend';
+// import Fetch from 'i18next-fetch-backend';
+import HttpApi from 'i18next-http-backend';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
@@ -12,13 +13,15 @@ i18n
   .use(initReactI18next)
   // load translation using xhr -> see /public/locales
   // learn more: https://github.com/i18next/i18next-xhr-backend
-  .use(Fetch)
+  // .use(Fetch)
+  .use(HttpApi)
   // detect user language
   // learn more: https://github.com/i18next/i18next-browser-languageDetector
   .use(LanguageDetector)
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
+    // loadPath: '/locales/{{lng}}/{{ns}}.json',
     // debug: true,
     lng: 'en-US',
     fallbackLng: 'nl-NL',

@@ -32,6 +32,7 @@ import Html from './lib/ssr';
 import './lib/i18n';
 import { createClient } from './lib/apollo';
 import Root from '../components/root';
+import { type } from 'os';
 
 // Types
 export interface RouterContext {
@@ -52,7 +53,8 @@ export default function(output: Output) {
 
     // Render our components - passing a GraphQL client
     // and a router for rendering based on our route config
-    const components = () => {
+    const components: React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | (new (props: any) =>  React.Component<any, any, any>)> | null) | (new (props: any) => React.Component<any, any, any>)> = () => {
+    // const components = React.createElement("input") => {
       return (
         <StaticRouter location={ctx.request.url} context={routerContext}>
           <Root apolloClient={client} />
