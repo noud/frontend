@@ -83,7 +83,7 @@
     "mui-datatables": "^2.14.0",
     "node-sass": "^4.13.1",
     "o": "^2.3.2",
-    "object-path": "^0.11.5",
+    "object-path": "^0.11.8",
     "ora": "^4.0.3",
     "pluralize": "^8.0.0",
     "prop-types": "^15.7.2",
